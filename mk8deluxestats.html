@@ -1,0 +1,1026 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Mario Kart 8 Deluxe Stat Calculator</title>
+<style>
+body{
+	min-width:1200px;
+	margin:0px;
+	padding:0px;
+	font-family: Arial, Helvetica, sans-serif
+}
+
+h1{
+	margin:0px;
+	margin-left:5px;
+	padding:0px;
+	font-size:1em;
+	display:inline;
+}
+
+.separator{
+	margin:0px;
+	height:1.7em;
+	font-size:.8em;
+	padding:0.3em;
+	background-color:#ACD;
+	whitespace:nowrap;
+	border-bottom: 1px solid #559;
+	border-top: 1px solid #559;
+	box-sizing:border-box;
+}
+.separator:first-child{
+	padding:0.3em;
+	height:1.8em;
+	border-top:none;
+}
+.separator ul{
+	margin:0px;
+	padding:0px;
+	display:inline;
+}
+.separator li{
+	margin:5px;
+	list-style-type:none;
+	display:inline;
+	text-decoration:underline;
+	whitespace:nowrap;
+	overflow:hidden;
+}
+.containsSelect{
+	height:28px;
+}
+.separator select{
+	margin:0px;
+	padding:0px;
+	box-sizing:border-box;
+}
+.separator h2{
+	margin:0px;
+        margin-top:-0.3em;
+	padding:0px;
+	width:50%;
+	font-size:1.2em;
+	text-align:center;
+	box-sizing:border-box;
+	display:inline-block;
+}
+.separator h2:last-child{
+	box-sizing:border-box;
+}
+
+#statDisplayContainer{
+	color:white;
+	height:250px;
+	width:100%;
+	margin:auto;
+	background-color:#112;
+	display:block;
+	text-align:center;
+}
+
+
+.statDisplay{
+	position:relative;
+	height:100%;
+        padding-top:25px;
+	margin:auto;
+	width:520px;
+        color:black;
+	background-color:#cdd;
+	box-sizing:border-box;
+	display:inline-block;
+	overflow:hidden;
+}
+.statDisplay:last-child{
+	border-left:3px solid #112;
+	margin-right:0px;
+}
+.statDisplay h1{
+	position:absolute;
+	top:6px;
+	left:10px;
+	padding:0px;
+	font-size:.9em;
+	font-weight:bold;
+	display:block;
+}
+.statDisplay h2{
+	margin-bottom:0px;
+	height:20px;
+	width:25%;
+	font-size:.9em;
+	display:inline-block;
+	box-sizing:border-box;
+	border: 1px solid black;
+	border-left:none;
+	float:left;
+}
+.statDisplay h2:last-child{
+	border-right:none;
+}
+
+.statDisplay .buildParts{
+	width: 25%;
+	height:70%;
+        padding-top:5px;
+	box-sizing:border-box;
+	border-right: 1px solid black;
+	float:left;
+}
+.statDisplay .buildParts:last-child{
+	border-right:none;
+}
+
+.statContainer{
+	position:relative;
+	height:19px;
+	width:50%;
+	float:left;
+	display:block;
+}
+.statContainer p{
+	margin:0px;
+	width:35px;
+	font-weight:bold;
+	font-size:12px;
+	padding:4px 0px 0px 0px;
+	display:inline-block;
+	overflow:hidden;
+	text-align:left;
+	float:right;
+}
+.statContainer p:first-child{
+	width:100px;
+	float:left;
+	font-weight:normal;
+	text-align:right;
+}
+
+.statContainer .barBack{
+	position:absolute;
+	top:4px;
+	left:110px;
+	height:15px;
+	width:108px;
+	display:block;
+	background-color:#888;
+	z-index:0;
+}
+.statContainer .statGrid{
+	position:absolute;
+	top:4px;
+	left:110px;
+	width:108px;
+	height:15px;
+	display:block;
+	float:right;
+	z-index:2;
+}
+.statContainer .statFill{
+	width:54px;
+	height:15px;
+	display:block;
+	position:absolute;
+	top:4px;
+	left:110px;
+	background-color:yellow;
+	z-index:1;
+}
+.statContainer .barBlock{
+	margin:0px;
+	padding:0px;
+	width:18px;
+	height:100%;
+	border: 1px solid black;
+        border-width: 1px 1px 1px 0px;
+	box-sizing:border-box;
+	display:block;
+	float:left;
+}
+.statContainer .barBlock:first-child{
+	border-left:1px solid black;
+}
+.partSelectWrap{
+	height:180px;
+	display:block;
+}
+.partSelectContainer{
+	height:100%;
+	width:50%;
+	display:inline-block;
+	box-sizing:border-box;
+	background-color:#cdd;
+	float:left;
+}
+.partSelectContainer:last-child{
+	border-left:3px solid #559;
+}
+
+.partSelectArea{
+	height:100%;
+	width:25%;
+	display:inline-block;
+	float:left;
+	padding:0px 6px;
+	box-sizing:border-box;
+}
+.partSelectArea h1{
+	width:100%;
+	text-align:center;
+	display:block;
+	font-weight:normal;
+	font-size:.8em;
+}
+.partSelect{
+	width:100%;
+	margin:auto;
+        max-width:200px;
+	height:158px;
+	display:block;
+}
+</style>
+</head>
+<body>
+<div id="optionsBar" class="separator">
+<h1>Mario Kart 8 Deluxe Stat Calculator</h1> | 
+<h1>Language:</h1>
+<ul>
+	<li>English (NoA)</li>
+	<li>English (NoE)</li>
+	<li>Français (NoA)</li>
+	<li>Français (NoE)</li>
+</ul>
+</div>
+<div id="statDisplayContainer">
+  <div id="statDisplay1" class="statDisplay">
+    <h1 class="buildHeader">Build #1</h1>
+
+  <div class="statContainer">
+    <p class="statLabel">Speed</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Air)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:white"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Acceleration</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Water)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#35359D"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Weight</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Grav)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#47FF47"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Air)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:white"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Traction</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Water)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#35359D"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Miniturbo</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Grav)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#47FF47"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+
+    <span>
+      <h2 class="partListHeader">Character</h2>
+      <h2 class="partListHeader">Body</h2>
+      <h2 class="partListHeader">Tires</h2>
+      <h2 class="partListHeader">Glider</h2>
+    </span>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+  </div><!-
+  -><div id="statDisplay2" class="statDisplay">
+    <h1 class="buildHeader">Build #2</h1>
+
+  <div class="statContainer">
+    <p class="statLabel">Speed</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Air)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:white"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Acceleration</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Water)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#35359D"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Weight</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Speed (Grav)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#47FF47"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Air)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:white"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Traction</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Water)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#35359D"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Miniturbo</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+  <div class="statContainer">
+    <p class="statLabel">Handling (Grav)</p><p class="statValue"></p>
+    <span class="barBack"></span><span class="statFill" style="background-color:#47FF47"></span><div class="statGrid">
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+      <span class="barBlock"></span><span class="barBlock"></span><span class="barBlock"></span>
+    </div>
+  </div>
+
+    <span>
+      <h2 class="partListHeader">Character</h2>
+      <h2 class="partListHeader">Body</h2>
+      <h2 class="partListHeader">Tires</h2>
+      <h2 class="partListHeader">Glider</h2>
+    </span>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+    <div class="buildParts"></div>
+
+  </div>
+</div>
+<div id="partsBar" class="separator"><h2 name="display1">Build #1 Part Select</h2><h2 name="display2">Build #2 Part Select</h2></div>
+<div class="partSelectWrap">
+<div class="partSelectContainer">
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Character</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Body</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Tires</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Glider</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+</div>
+<div class="partSelectContainer">
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Character</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Body</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Tires</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+  <div class="partSelectArea">
+    <h1 class="partSelectHeader">Glider</h1>
+    <select class="partSelect" size="2">
+    </select>
+  </div>
+</div>
+</div></div>
+<div id="sortBar" class="separator containsSelect">
+  <h1>Part Selection:</h1>
+  <select id="partOptions">
+    <option>All Parts</option>
+    <option>Unique Groups</option>
+  </select> | 
+  <h1>Sort By: </h1>
+  <select id="sortOptions">
+    <option>Default</option>
+    <option>Name</option>
+    <option>Speed</option>
+    <option>Acceleration</option>
+    <option>Weight</option>
+    <option>Handling</option>
+    <option>Traction</option>
+    <option>Miniturbo</option>
+    <option>Speed (Air)</option>
+    <option>Speed (Water)</option>
+    <option>Speed (Grav)</option>
+    <option>Handling (Air)</option>
+    <option>Handling (Water)</option>
+    <option>Handling (Grav)</option>
+  </select>
+  <select id="sortOrder">
+    <option>Ascending Order</option>
+    <option>Descending Order</option>
+  </select>
+  </ul>
+</div>
+<script>
+
+var ui = {
+  activeDisplay:0,
+};
+
+var settings = {
+  partSelection:0,
+  displays:1,
+  locale:0,
+  sortOrder:1,
+
+  init:function(){
+
+  }
+};
+
+var sort = {
+  currentSort:"chara",
+  byDefault(a,b){
+    if(a[0] == b[0]) return 0;
+    else return (a[0] < b[0])?-1:1;
+  },
+
+  byName(a,b){
+    var n1 = str.get(sort.currentSort,a[0]);
+    var n2 = str.get(sort.currentSort,b[0]);
+    if(n1 == n2) return 0;
+    else return (n1<n2)?-1:1;
+  },
+
+  sortAll:function(){
+    var sortType = [sort.byDefault,sort.byName];
+    for(var i=0;i<ui.lists.length;i++){
+      sort.currentSort = ui.lists[i];
+      parts[ui.lists[i]].sort(sortType[settings.sortOrder]);
+    }
+  }
+};
+
+var ui = {
+  lists:["chara","kart","tire","glider"],
+  selected:[-1,-1,-1,-1,-1,-1,-1,-1],
+
+  onPartChange:function(){
+    var lists = document.querySelectorAll(".partSelect");
+    for(var i=0;i<lists.length;i++)
+      ui.selected[i] = parts[ui.lists[i%4]][lists[i].selectedIndex][0];
+    display.updateStatDisplay();
+  },
+
+  getSelectedIndex:function(listIndex){
+    var index = ui.selected[listIndex];
+    var type = ui.lists[listIndex%4];
+    if(index == -1){
+      index = parts[type][0][0];
+      ui.selected[listIndex] = index;
+    }
+    for(var i=0;i<parts[type].length;i++)
+      if(parts[type][i][0] == ui.selected[listIndex]){
+        return i;
+      }
+    return -1;
+  },
+
+  init:function(){
+    var partLists = document.querySelectorAll(".partSelect");
+    for(var i=0;i<partLists.length;i++)
+      partLists[i].onchange = ui.onPartChange;
+      display.updateStatDisplay();
+  }
+};
+
+var display = {
+  maxDisplays: 2,
+
+  updateLocale: function(){
+    var labels = document.querySelectorAll(".statLabel");
+    for(var i=0;i<12;i++){
+      labels[i].innerHTML = str.get("stat",i);
+      labels[i+12].innerHTML = str.get("stat",i);
+    }
+
+    labels = document.querySelectorAll(".partListHeader,.partSelectHeader");
+    for(i=0;i<4;i++){
+      for(var j=0;j<=12;j+=4)
+        labels[i+j].innerHTML = str.get("label",i);
+    }
+
+    labels = document.querySelectorAll("#sortOptions option");
+    for(var i=0;i<labels.length;i++){
+      labels[i].innerHTML = str.get("sortOptions",i);
+    }
+
+  },
+
+  updateStatDisplay:function(){
+    var display_stats = []; //Using an array in the event I need all stats readily available
+    var order = [0,2,4,1,5,3,6,8,10,7,11,9]; //Order of stat categories
+    var partLists = document.querySelectorAll(".partSelect");
+    var valueOut = document.querySelectorAll(".statValue");
+    var fillOut = document.querySelectorAll(".statFill");
+    var partsOut = document.querySelectorAll(".buildParts");
+    var indices = [];
+    for(var i=0;i<partLists.length;i++){
+      indices[i] = partLists[i].selectedIndex;
+      //Set Part Images
+      var html = "";
+      var type = [ui.lists[i%4]];
+      var group = groups[type][parts[type][indices[i]][1]];
+      var height = (i%4==0)?32:32;
+      var width = (i%4==0)?32:50;
+      for(var j=0;j<group.length;j++){
+        if(j%2==0 && j > 0) html += "<br>";
+        html+="<img src=\"img/"+type+"_"+group[j]+".png\" height=\""+height+"\" width=\""+width+"\"> ";
+      }
+      partsOut[i].innerHTML = html;
+    }
+
+    for(i=0;i<24;i++){
+      display_stats[i] = 0;
+      for(j=(i<12?0:4);j<(i<12?4:8);j++){
+        var type = [ui.lists[j%4]];
+        var statIndex = parts[type][indices[j]][1];
+        display_stats[i] += stats[type][statIndex][order[i%12]];
+      }
+      var value = display_stats[i]*0.25+0.75;
+      valueOut[i].innerHTML = value;
+      fillOut[i].style.width = (value/6*108)+"px";
+    }
+  },
+
+ 
+  populatePartLists:function(){
+    sort.sortAll();
+    var lists = document.querySelectorAll(".partSelect");
+    for(var i=0;i<2;i++){
+      for(var j=0;j<4;j++){
+        var html = "";
+        for(var k=0;k<parts[ui.lists[j]].length;k++)
+          html += "<option>"+str.get(ui.lists[j],parts[ui.lists[j]][k][0])+"</option>";
+        lists[i*4+j].innerHTML = html;
+        lists[i*4+j].selectedIndex = ui.getSelectedIndex(i*4+j);
+      }
+    }
+  },
+
+  init:function(){
+    //Init Stat Bars
+    var statContainerArea = document.querySelectorAll(".statContainerArea");
+      display.updateLocale();
+      display.populatePartLists();
+  }
+};
+
+/* 
+Misc. Notes
+Base Builds:
+Speed: 0.75 (Mr. Scooty, Roller, Parachute)  (-0.75, -0.5, -0.25)
+Accel: 1.00 (Standard ATV, Metal, Super)      (   -1,  -1,     0)
+Weight: 0.75 (Mr. Scooty, Roller, Parachute) ( -0.5, -0.5, -0.25)
+Handling: 1.00 (Standard ATV, Monster, n/a)  (-0.75,-0.75,     0)
+Traction: 0.75 (Sneeker, Slick, Plane)        (-0.75, -1.25, -0.25)
+*/
+
+var parts = {
+  //List of individual part data references
+  // Format: [string/image index, group/stat array index]
+  chara: [[ 0, 9], //E.g. str.chara[0][language] = "Mario", stats.chara[9] = Mario's stats
+          [ 1,10], [ 2, 7], [ 3, 7], [ 4,11], [ 5, 8], [ 6, 6],
+          [ 7, 7], [ 8, 5], [ 9, 3], [10, 5], [11, 3], [12, 4], [13,11],
+          [14, 2], [15, 2], [16, 0], [17, 0], [18, 1], [19,14], [20,14],
+          [21,13], [22,12], [23,12], [24,15], [25, 2], [26, 3], [27,13],
+          [28, 1], [29, 5], [30, 4], [31, 9], [32,10], [33,12], [34,15],
+          [35, 6], [36, 8], [37,11], [38, 8], [39, 6], [40, 4],
+          [41, 2], [42, 9], [43,15]],
+
+  kart: [[ 0, 0], [ 1, 1], [ 2, 2], [ 3, 3], [ 4, 4],
+         [ 5, 5], [ 6, 3], [ 7, 6], [ 8, 7], [ 9, 8],
+         [10, 9], [11,10], [12, 2], [13,10], [14, 6],
+         [15,11], [16, 0], [17,12], [18,13], [19, 5],
+         [20, 9], [21, 5], [22,13],
+         [23,11], [24, 4], [25, 7], [26, 0], [27,11],
+         [28, 1], [29, 8], [30, 7], [31, 4], [32,10],
+         [33, 1],
+         [34, 6], [35,11], [36, 4], [37, 3], [38, 2],
+         [39,12]],
+
+  tire: [[ 0, 0], [ 1, 1], [ 2, 2], [ 3, 3], [ 4, 4],
+         [ 5, 5], [ 6, 6], [ 7, 7], [ 8, 8], [ 9, 3],
+         [10, 8], [11, 0], [12, 1], [13, 2], [14, 3],
+         [15, 4], [16, 7], [17, 5], [18, 0], [19, 7],
+         [20, 6]],
+
+  glider: [[ 0, 0], [ 1, 1], [ 2, 2], [ 3, 0], [ 4, 3],
+           [ 5, 1], [ 6, 3], [ 7, 1], [ 8, 3], [ 9, 2],
+           [10, 3], [11, 2], [12, 0], [13, 1]]
+};
+
+var groups = {
+  //List of similar characters/parts within a group
+  //Hardcoded only so it doesn't need to be constantly calculated
+  chara: [[16,17],
+          [18,28],
+          [14,15,25,41],
+          [9,11,26],
+          [12,30,40],
+          [8,10,29],
+          [6,35,39],
+          [2,3,7],
+          [5,36,38],
+          [0,31,42],
+          [1,32],
+          [4,13,37],
+          [22,23,33],
+          [21,27],
+          [19,20],
+          [24,34,43]],
+
+  kart: [[0,16,26],
+        [1,28,33],
+        [2,12,38],
+        [3,6,37],
+        [4,24,31,36],
+        [5,19,21],
+        [7,14,34],
+        [8,25,30],
+        [9,29],
+        [10,20],
+        [11,13,32],
+        [15,23,27,35],
+        [17,39],
+        [18,22]],
+
+  tire: [[0,11,18],
+        [1,12],
+        [2,13],
+        [3,9,14],
+        [4,15],
+        [5,17],
+        [6,20],
+        [7,16,19],
+        [8,10]],
+
+  glider: [[0,3,12],
+           [1,5,7,13],
+           [2,9,11],
+           [4,6,8,10]]
+};
+
+var stats = {
+  // negative = unknown value
+  //       SPD (W) (A) (AG) Ac  Wt Hnd (W) (A) (AG) Tr. MT
+  chara: [[  0,  0,  0,  0,  4,  0, 10, 10, 10, 10,  5,  5], //Light (1): Baby Peach, Baby Daisy
+          [  0,  0,  0,  0,  5,  0,  9,  9,  9,  9,  3,  5], //Light (2): Baby Rosa, Lemmy
+          [  1,  1,  1,  1,  5,  1,  8,  8,  8,  8,  4,  4], //Light (3): Baby Mario, Baby Luigi, Dry Bones, Mii
+          [  2,  2,  2,  2,  4,  2,  8,  8,  8,  8,  5,  4], //Light (4): Koopa, Lakitu, Bowser Jr.
+          [  2,  2,  2,  2,  5,  2,  7,  7,  7,  7,  2,  4], //Light (5): Toadette, Wendy, Isabelle
+          [  3,  3,  3,  3,  4,  3,  7,  7,  7,  7,  4,  3], //Light (6): Toad, Shy Guy, Larry
+          [  4,  4,  4,  4,  4,  3,  6,  6,  6,  6,  3,  3], //Medium (1): Cat Peach, Inkling(F), Villager(F)
+          [  5,  5,  5,  5,  3,  4,  5,  5,  5,  5,  3,  3], //Medium (2): Peach, Daisy, Yoshi
+          [  5,  5,  5,  5,  3,  5,  5,  5,  5,  5,  1,  3], //Medium (3): Tanooki Mario, Inkling(M), Villager(M)
+          [  6,  6,  6,  6,  2,  6,  4,  4,  4,  4,  2,  2], //Medium (4): Mario, Ludwig, Mii
+          [  6,  6,  6,  6,  2,  6,  5,  5,  5,  5,  1,  2], //Medium (5): Luigi, Iggy
+          [  7,  7,  7,  7,  1,  7,  3,  3,  3,  3,  3,  2], //Heavy (1): Rosalina, King Boo, Link
+          [  9,  9,  9,  9,  1,  8,  2,  2,  2,  2,  0,  1], //Heavy (2): Waluigi, DK, Roy
+          [ 10, 10, 10, 10,  0,  9,  1,  1,  1,  1,  1,  0], //Heavy (3): Wario, Dry Bowser
+          [  8,  8,  8,  8,  1, 10,  3,  3,  3,  3,  1,  1], //Heavy (4): Metal Mario, Pink Gold Peach
+          [ 10, 10, 10, 10,  0, 10,  0,  0,  0,  0,  0,  0]],//Heavy (5): Bowser, Morton, Mii
+
+  //       SPD (W) (A) (AG) Ac  Wt Hnd (W) (A) (AG) Tr. MT
+  kart:  [[  3,  3,  3,  3,  4,  2,  3,  2,  3,  3,  3,  4], //Standard, 300 SL Roadster, The Duke
+          [  1,  3,  1,  1,  6,  1,  5,  4,  2,  4,  4,  6], //Pipe Frame, City Tripper, Varmint
+          [  3,  3,  4,  5,  3,  3,  2,  2,  2,  4,  4,  4], //Mach 8, Sports Coupe, Inkstriker
+          [  4,  5,  0,  2,  1,  4,  1,  5,  1,  1,  3,  2], //Steel Driver, Tri-Speeder, Bone Rattler
+          [  2,  2,  4,  3,  5,  2,  4,  2,  4,  3,  3,  5], //Cat Cruiser, Comet, Yoshi Bike, Teddy Buggy
+          [  5,  1,  2,  4,  1,  3,  1,  1,  0,  2,  1,  1], //Circuit Special, B Dasher, P-Wing
+          [  5,  2,  1,  3,  0,  4,  0,  1,  0,  1,  5,  0], //Badwagon, GLA, Standard ATV
+          [  4,  3,  3,  3,  2,  1,  3,  3,  3,  2,  2,  3], //Prancer, Sport Bike, Jet Bike
+          [  0,  1,  1,  2,  7,  0,  5,  4,  4,  5,  4,  7], //Biddybuggy, Mr. Scooty
+          [  1,  5,  2,  0,  6,  0,  4,  5,  3,  2,  6,  6], //Landship, Streetle
+          [  4,  2,  3,  3,  2,  2,  3,  2,  2,  3,  0,  3], //Sneeker, Gold Standard, Master Cycle
+          [  2,  2,  3,  4,  5,  1,  4,  3,  3,  4,  5,  5], //W 25 Silver Arrow, Standard Bike, Flame Rider, Wild Wiggler 
+          [  4,  2,  3,  4,  3,  0,  2,  3,  1,  5,  3,  3], //Blue Falcon, Splat Buggy
+          [  2,  4,  3,  3,  2,  3,  4,  4,  3,  3,  7,  3]],//Tanooki Kart, Koopa Clown
+
+  //       SPD (W) (A) (AG) Ac  Wt Hnd (W) (A) (AG) Tr. MT
+  tire:  [[  2,  3,  3,  2,  4,  2,  3,  3,  3,  3,  5,  3], //Standard, Blue Standard, GLA Tires
+          [  2,  2,  1,  2,  2,  4,  0,  1,  1,  0,  7,  2], //Monster, Hot Monster
+          [  0,  3,  3,  0,  6,  0,  4,  4,  4,  4,  4,  6], //Roller, Azure Roller
+          [  3,  2,  2,  4,  2,  2,  4,  4,  4,  3,  1,  2], //Slim, Wood, Crimson Slim
+          [  4,  0,  0,  4,  1,  3,  2,  0,  1,  2,  0,  0], //Slick, Cyber Slick
+          [  4,  3,  2,  1,  0,  4,  2,  2,  0,  1,  2,  0], //Metal, Gold Tires
+          [  1,  2,  2,  2,  5,  0,  3,  3,  2,  4,  3,  5], //Button, Leaf
+          [  3,  4,  1,  2,  3,  3,  1,  1,  1,  2,  6,  1], //Off-Road, Retro Off-Road, Triforce Tires
+          [  1,  1,  4,  1,  4,  1,  2,  1,  3,  3,  6,  4]],//Sponge, Cushion
+
+  //       SPD (W) (A) (AG) Ac  Wt Hnd (W) (A) (AG) Tr. MT
+  glider:[[  1,  1,  2,  0,  1,  1,  1,  0,  1,  1,  1,  1], //SuperGlider/etc
+          [  0,  1,  1,  1,  2,  0,  1,  0,  2,  1,  1,  2], //Cloud Glider/etc
+          [  1,  0,  2,  1,  1,  2,  1,  1,  1,  0,  0,  1], //Wario Wing/etc
+          [  0,  0,  1,  1,  2,  1,  1,  1,  2,  0,  0,  2]], //Peach Parasol/etc
+};
+/*
+
+Stat: Where [stat] is [comparison] [value]
+ -[stat] = (list of stats)
+  [comparison] = <, ≤, =, ≥, >, in range
+  [value] = (custom), (Build #1)
+Drift: Is [inward/outward] drift
+Contains Part: [character/kart/tire/glider]
+
+*/
+var str = {
+  get:function(type,id){
+    return str[type][id][settings.locale];
+  },
+
+  language: ["English (NOA)","English (NOE)","Français (NOA)","Français (NOE)"],
+
+  label: [["Character","Character","Personnage","Personnage"],
+          ["Body","Body","Châssis","Châssis"],
+          ["Tires","Tyres","Roues","Roues"],
+          ["Glider","Glider","Parachute","Parachute"]],
+
+  stat: [["Speed","Speed","Vitesse","Vitesse"],
+         ["Speed (Air)","Speed (Air)","Vitesse (Air)","Vitesse (Air)"],
+         ["Acceleration","Acceleration","Accélération","Accélération"],
+         ["Speed (Water)","Speed (Water)","Vitesse (Eau)","Vitesse (Eau)"],
+         ["Weight","Weight","Poids","Poids"],
+         ["Speed (Grav)","Speed (Grav)","Vitesse (AG)","Vitesse (AG)"],
+         ["Handling","Handling","Maniabilité","Maniabilité"],
+         ["Handling (Air)","Handling (Air)","Maniabilité (Air)","Maniabilité (Air)"],
+         ["Traction","Grip","Adhérence","Adhérence"],
+         ["Handling (Water)","Handling (Water)","Maniabilité (Eau)","Maniabilité (Eau)"],
+         ["Miniturbo","Miniturbo","Miniturbo","Miniturbo"],
+         ["Handling (Grav)","Handling (Grav)","Maniabilité (AG)","Maniabilité (AG)"]],
+
+  partOptions: [["All Parts","All Parts","Toutes les pièces","Toutes les pièces"],
+                ["Unique Groups","Unique Groups","Groupes uniques","Groupes uniques"]],
+  sortOptions: [["Default","Default","Défaut","Défaut"],
+               ["Name","Name","Prénom","Prénom"]],
+  sortOrder: [["Ascending Order","Ascending Order","Ordre croissant","Ordre croissant"],
+              ["Descending Order","Descending Order","Ordre décroissant","Ordre décroissant"]],
+
+  chara: [["Mario","Mario","Mario","Mario"],
+          ["Luigi","Luigi","Luigi","Luigi"],
+          ["Peach","Peach","Peach","Peach"],
+          ["Daisy","Daisy","Daisy","Daisy"],
+          ["Rosalina","Rosalina","Rosalina","Rosalina"],
+          ["Tanooki Mario","Tanooki Mario","Mario tanooki","Mario tanooki"],
+          ["Cat Peach","Cat Peach","Peach chat","Peach chat"],
+          ["Yoshi","Yoshi","Yoshi","Yoshi"],
+          ["Toad","Toad","Toad","Toad","Toad"],
+          ["Koopa","Koopa","Koopa","Koopa"],
+          ["Shy Guy","Shy Guy","Maskache","Maskass"],
+          ["Lakitu","Lakitu","Lakitou","Lakitu"],
+          ["Toadette","Toadette","Toadette","Toadette"],
+          ["King Boo","King Boo","Roi Boo","Roi Boo"],
+          ["Baby Mario","Baby Mario","Bébé Mario","Bébé Mario"],
+          ["Baby Luigi","Baby Luigi","Bébé Luigi","Bébé Luigi"],
+          ["Baby Peach","Baby Peach","Bébé Peach","Bébé Peach"],
+          ["Baby Daisy","Baby Daisy","Bébé Daisy","Bébé Daisy"],
+          ["Baby Rosalina","Baby Rosalina","Bébé Rosalina","Bébé Rosalina"],
+          ["Metal Mario","Metal Mario","Mario de métal","Mario de métal"],
+          ["Pink Gold Peach","Pink Gold Peach","Peach d'or rose","Peach d'or rose"],
+          ["Wario","Wario","Wario","Wario"],
+          ["Waluigi","Waluigi","Waluigi","Waluigi"],
+          ["Donkey Kong","Donkey Kong","Donkey Kong","Donkey Kong"],
+          ["Bowser","Bowser","Bowser","Bowser"],
+          ["Dry Bones","Dry Bones","Skelex","Skelerex"],
+          ["Bowser Jr.","Bowser Jr.","Bowser Jr.","Bowser Jr."],
+          ["Dry Bowser","Dry Bowser","Bowser Skelet","Bowser Skelet"],
+          ["Lemmy","Lemmy","Lemmy","Lemmy"],
+          ["Larry","Larry","Larry","Larry"],
+          ["Wendy","Wendy","Wendy","Wendy"],
+          ["Ludwig","Ludwig","Ludwig","Ludwig"],
+          ["Iggy","Iggy","Iggy","Iggy"],
+          ["Roy","Roy","Roy","Roy"],
+          ["Morton","Morton","Morton","Morton"],
+          ["Inkling Girl","Inkling Girl","Fille inkling","Fille inkling"],
+          ["Inkling Boy","Inkling Boy","Garçon inkling","Garçon inkling"],
+          ["Link","Link","Link","Link"],
+          ["Villager (M)","Villager (M)","Habitant","Villageois"],
+          ["Villager (F)","Villager (F)","Habitante","Villageoise"],
+          ["Isabelle","Isabelle","Marie","Marie"],
+          ["Mii (Light)","Mii (Light)","Mii (léger)","Mii (léger)"],
+          ["Mii (Medium)","Mii (Medium)","Mii (moyen)","Mii (moyen)"],
+          ["Mii (Heavy)","Mii (Heavy)","Mii (lourd)","Mii (lourd)"]],
+
+  kart: [["Standard Kart","Standard Kart","Kart standard","Kart standard"],
+         ["Pipe Frame","Pipe Frame","Rétro","Rétro"],
+         ["Mach 8","Mach 8","Mach 8","Proto 8"],
+         ["Steel Driver","Steel Driver","Nauticomobile","Nautomobile"],
+         ["Cat Cruiser","Cat Cruiser","Chabriolet","Chabriolet"],
+         ["Circuit Special","Circuit Special","Rapido","Mach-célère"],
+         ["Tri-Speeder","Tri-Speeder","Tubul R3","Tubul R3"],
+         ["Badwagon","Badwagon","Stéréo-bolide","Beat-bolide"],
+         ["Prancer","Prancer","Deux-chevaux","Cavalkart"],
+         ["Biddybuggy","Buggybud","Paracoccinelly(?)","Paracoccinelly"],
+         ["Landship","Landship","Batea roulant","Caravéloce"],
+         ["Sneeker","Bounder","Espakart","Sneakart"],
+         ["Sports Coupe","Sports Coupé","Coupé sport","Propulsar"],
+         ["Gold Standard","Gold Kart","Or","Or"],
+         ["GLA","GLA","GLA","GLA"],
+         ["W 25 Silver Arrow","W 25 Silver Arrow","W25 Flèche d'argent","W25 Flèche d'argent"],
+         ["300 SL Roadster","300 SL Roadster","300 SL Roadster","300 SL Roadster"],
+         ["Blue Falcon","Blue Falcon","Blue Falcon","Blue Falcon"],
+         ["Tanooki Kart","Tanooki Kart","Buggy tanuki(?)","Buggy tanuki"],
+         ["B Dasher","B Dasher","Intrépide","Intrépide"],
+         ["Streetle","Streetle","Autorhino","Autorhino"],
+         ["P-Wing","P-Wing","Magikart","Magikart"],
+         ["Koopa Clown","Koopa Clown"],
+         ["Standard Bike","Standard Bike","Moto standard"],
+         ["Comet","Comet"],
+         ["Sport Bike","Sport Bike"],
+         ["The Duke","The Duke"],
+         ["Flame Rider","Flame Rider"],
+         ["Varmint","Varmint"],
+         ["Mr. Scooty","Mr Scooty"],
+         ["Jet Bike","Jet Bike"],
+         ["Yoshi Bike","Yoshi Bike"],
+         ["Master Cycle","Master Cycle"],
+         ["City Tripper","City Tripper"],
+         ["Standard ATV","Standard Quad"],
+         ["Wild Wiggler","Wild Wiggler"],
+         ["Teddy Buggy","Teddy Buggy"],
+         ["Bone Rattler","Bone Rattler"],
+         ["Inkstriker","Inkstriker"],
+         ["Splat Buggy","Splat Buggy"]],
+
+  tire: [["Standard","Normal"],
+         ["Monster","Monster"],
+         ["Roller","Roller"],
+         ["Slim","Slim"],
+         ["Slick","Slick"],
+         ["Metal","Metal"],
+         ["Button","Button"],
+         ["Off-Road","Off-Road"],
+         ["Sponge","Sponge"],
+         ["Wood","Wooden"],
+         ["Cushion","Cushion"],
+         ["Blue Standard","Normal Blue"],
+         ["Hot Monster","Funky Monster"],
+         ["Azure Roller","Azure Roller"],
+         ["Crimson Slim","Crimson Slim"],
+         ["Cyber Slick","Cyber Slick"],
+         ["Retro Off-Road","Retro Off-Road"],
+         ["Gold Tires","Gold Wheels"],
+         ["GLA Tires","GLA Wheels"],
+         ["Triforce Tires","Triforce Tyres"],
+         ["Leaf Tires","Leaf Tyres"]],
+
+  glider: [["Super Glider","Super Glider"],
+           ["Cloud Glider","Cloud Glider"],
+           ["Wario Wing","Wario Wing"],
+           ["Waddle Wing","Waddle Wing"],
+           ["Peach Parasol","Peach Parasol"],
+           ["Parachute","Parachute"],
+           ["Parafoil","Parafoil"],
+           ["Flower Glider","Flower Glider"],
+           ["Bowser Kite","Bowser Kite"],
+           ["Plane Glider","Plane Glider"],
+           ["MKTV Parafoil","MKTV Parafoil"],
+           ["Gold Glider","Gold Glider"],
+           ["Hylian Kite","Hylian Kite"],
+           ["Paper Glider","Paper Glider"]],
+
+  group: [["Light","Light","Léger","Léger"],
+          ["Medium","Medium","Moyen","Moyen"],
+          ["Heavy","Heavy","Lourd","Lourd"],
+          ["Body Group","Body Group","Châssis"],
+          ["Tire Group","Tyre Group"],
+          ["Glider Group","Glider Group"]],
+
+  init: function(){
+    //Copy repeat strings to new arrays
+    var statOrder = [0,2,4,6,8,10,1,3,5,7,9,11];
+    for(var i=0;i<statOrder.length;i++)
+      str.sortOptions[i+2] = str.stat[statOrder[i]];
+  }
+};
+
+function init(){
+  str.init();
+  settings.init();
+  display.init();
+  ui.init();
+}
+
+init();
+</script>
+</body>
+</html>
