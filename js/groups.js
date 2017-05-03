@@ -1,6 +1,6 @@
 /* groups.js
   Contains lists of all parts belonging to a unique group (i.e. each group contains parts with the same stats.)
-  The lists are generated when the init function is run.
+  The lists are generated when the init function is called.
   */
   
 var groups = {
