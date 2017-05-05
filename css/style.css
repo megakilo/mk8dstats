@@ -6,6 +6,11 @@ body{
 	font-family: Arial, Helvetica, sans-serif
 }
 
+#contentWrapper{
+	height:100%;
+	min-height:704px;
+}
+
 h1{
 	margin:0px;
 	margin-left:5px;
