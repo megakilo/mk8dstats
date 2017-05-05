@@ -13,20 +13,57 @@ var ui = {
 
   onPartChange:function(){
     var lists = document.querySelectorAll(".partSelect");
-    for(var i=0;i<lists.length;i++)
-      ui.selected[i] = parts[ui.lists[i%4]][lists[i].selectedIndex][0];
+    for(var i=0;i<lists.length;i++){
+      var partList = parts.getList(ui.lists[i%4]);
+      ui.selected[i] = partList[lists[i].selectedIndex][0];
+    }
     display.updateStatDisplay();
+  },
+
+  onPartOptionsChange:function(e){
+    if(settings.partOptions == 0){
+      //Some parts have been removed, change the selection to one that still exists
+      ui.fixSelection();
+    }
+    settings.set("partOptions",e.target.selectedIndex);
+  },
+
+  fixSelection:function(){
+    var lists = document.querySelectorAll(".partSelect");
+    for(var i=0;i<lists.length;i++){
+      var partIndex = ui.getSelectedIndex(i);
+      var partSet = parts[ui.lists[i%4]][partIndex][1];
+      for(var j=0;j<parts[ui.lists[i%4]+"_unique"].length;j++){
+        if(parts[ui.lists[i%4]+"_unique"][j][1] == partSet){
+          ui.selected[i] = parts[ui.lists[i%4]+"_unique"][j][0];
+          break;
+        }
+      }
+    }
+  },
+
+  onSortOptionsChange:function(e){
+    settings.set("sortOptions",e.target.selectedIndex);
+  },
+
+  onSortOrderChange:function(e){
+    settings.set("sortOrder",e.target.selectedIndex);
   },
 
   getSelectedIndex:function(listIndex){
     var index = ui.selected[listIndex];
     var type = ui.lists[listIndex%4];
+    var liveList = document.querySelectorAll(".partSelect")[listIndex];
+
     if(index == -1){
       index = parts[type][0][0];
       ui.selected[listIndex] = index;
     }
-    for(var i=0;i<parts[type].length;i++)
-      if(parts[type][i][0] == ui.selected[listIndex]){
+
+    var name = str.get(type,ui.selected[listIndex]);
+    var list = parts.getList(type);
+    for(var i=0;i<list.length;i++)
+      if(list[i][0] == ui.selected[listIndex]){
         return i;
       }
     return -1;
@@ -36,6 +73,9 @@ var ui = {
     var partLists = document.querySelectorAll(".partSelect");
     for(var i=0;i<partLists.length;i++)
       partLists[i].onchange = ui.onPartChange;
-      display.updateStatDisplay();
+    document.getElementById("partOptions").onchange = ui.onPartOptionsChange;
+    document.getElementById("sortOptions").onchange = ui.onSortOptionsChange;
+    document.getElementById("sortOrder").onchange = ui.onSortOrderChange;
+    display.updateStatDisplay();
   }
 };

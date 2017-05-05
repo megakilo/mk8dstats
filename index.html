@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Mario Kart 8 Deluxe Stat Calculator</title>
+	<script type="text/javascript" src="js/data/groups.js"></script>
+	<script type="text/javascript" src="js/data/parts.js"></script>
+	<script type="text/javascript" src="js/data/stats.js"></script>
+	<script type="text/javascript" src="js/locale/str.js"></script>
 	<script type="text/javascript" src="js/display.js"></script>
-	<script type="text/javascript" src="js/groups.js"></script>
-	<script type="text/javascript" src="js/languages.js"></script>
-	<script type="text/javascript" src="js/parts.js"></script>
 	<script type="text/javascript" src="js/preloader.js"></script>
 	<script type="text/javascript" src="js/settings.js"></script>
 	<script type="text/javascript" src="js/sort.js"></script>
-	<script type="text/javascript" src="js/stats.js"></script>
 	<script type="text/javascript" src="js/ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -304,6 +304,7 @@
 function init(){
   str.init();
   preloader.init();
+  parts.init();
   groups.init();
   settings.init();
   display.init();
