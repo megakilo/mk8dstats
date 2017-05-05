@@ -235,3 +235,31 @@ h1{
 	height:158px;
 	display:block;
 }
+#searchContainer{
+	position:absolute;
+	top:503px;
+	bottom:0;
+	min-height:200px;
+	min-width:1200px;
+	width:100%;
+	background-color:green;
+}
+#searchArea{
+	width:50%;
+	height:100%;
+	background-color:#cdd;
+	display:inline-block;
+	float:left;
+}
+#searchResults{
+	position:absolute;
+	top:0px;
+	width:50%;
+	bottom:0px;
+	border-left:3px solid #112;
+	box-sizing:border-box;
+	background-color:#112;
+	display:inline-block;
+	overflow:auto;
+	float:left;
+}
