@@ -3,10 +3,41 @@
   */
 
 var settings = {
-  partSelection:0,
+  partOptions:0,
   displays:1,
   locale:0,
-  sortOrder:1,
+  sortOptions:0,
+  sortOrder:0,
+
+  set:function(property,value){
+    settings[property] = value;
+    settings.setCookie(property);
+    if(property === "partOptions" || property === "sortOptions" || property === "sortOrder"){
+      sort.sortAll();
+      display.populatePartLists();
+    }
+  },
+
+  setCookie:function(property) {
+    var value = settings[property];
+    var expires = "expires=2147483647";
+    document.cookie = property + "=" + value + ";" + expires + ";path=/";
+  },
+
+  readCookie:function(property){
+    var name = property + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  },
 
   init:function(){
 

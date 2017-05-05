@@ -14,6 +14,12 @@
   */
 
 var parts = {
+  getList:function(type){
+    var end = (settings.partOptions == 0?"":"_unique");
+    var list = parts[type+end];
+    return list;
+  },
+
   chara: [[ 0, 9], //E.g. str.chara[0][language] = "Mario", stats.chara[9] = Mario's stats
           [ 1,10], [ 2, 7], [ 3, 7], [ 4,11], [ 5, 8], [ 6, 6],
           [ 7, 7], [ 8, 5], [ 9, 3], [10, 5], [11, 3], [12, 4], [13,11],
@@ -42,5 +48,21 @@ var parts = {
 
   glider: [[ 0, 0], [ 1, 1], [ 2, 2], [ 3, 0], [ 4, 3],
            [ 5, 1], [ 6, 3], [ 7, 1], [ 8, 3], [ 9, 2],
-           [10, 3], [11, 2], [12, 0], [13, 1]]
+           [10, 3], [11, 2], [12, 0], [13, 1]],
+
+  chara_unique: [],
+  kart_unique: [],
+  tire_unique: [],
+  glider_unique: [],
+
+  init: function(){
+    //Initialize the unique part lists, for use when populating the UI lists.
+    for(var i=0;i<ui.lists.length;i++){
+      var type = ui.lists[i];
+      for(var j=0;j<stats[type].length;j++){
+        for(var k=0;k<parts[type].length && parts[type][k][1] != j;k++);
+        parts[type+"_unique"].push(parts[type][k]);
+      }
+    }
+  }
 };

@@ -2,7 +2,7 @@
   Provides functions that are primarily used for updating visual aspects of the screen for the user.
     -updateLocale() - Updates all strings to reflect a change in the user's language settings.
     -updateStatDisplay() - Updates the "stat areas" which display build information.
-    -populatePartLists() - Should probably only run once during init phase, populates the part selection list.
+    -populatePartLists() - Populates the part list from scratch, called each time the sort order is changed.
   */
 
 var display = {
@@ -38,7 +38,7 @@ var display = {
       //Set Part Images
       var html = "";
       var type = [ui.lists[i%4]];
-      var group = groups[type][parts[type][indices[i]][1]];
+      var group = groups[type][parts.getList(type)[indices[i]][1]];
       var height = (i%4==0)?32:32;
       var width = (i%4==0)?32:50;
       for(var j=0;j<group.length;j++){
@@ -52,7 +52,7 @@ var display = {
       display_stats[i] = 0;
       for(j=(i<12?0:4);j<(i<12?4:8);j++){
         var type = [ui.lists[j%4]];
-        var statIndex = parts[type][indices[j]][1];
+        var statIndex = parts.getList(type)[indices[j]][1];
         display_stats[i] += stats[type][statIndex][order[i%12]];
       }
       var value = display_stats[i]*0.25+0.75;
@@ -68,8 +68,9 @@ var display = {
     for(var i=0;i<2;i++){
       for(var j=0;j<4;j++){
         var html = "";
-        for(var k=0;k<parts[ui.lists[j]].length;k++)
-          html += "<option>"+str.get(ui.lists[j],parts[ui.lists[j]][k][0])+"</option>";
+        for(var k=0;k<parts.getList(ui.lists[j]).length;k++){
+          html += "<option>"+str.get(ui.lists[j],parts.getList(ui.lists[j])[k][0])+"</option>";
+        }
         lists[i*4+j].innerHTML = html;
         lists[i*4+j].selectedIndex = ui.getSelectedIndex(i*4+j);
       }
