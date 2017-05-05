@@ -1,14 +1,23 @@
 /* Disgusting. */
+
+html{
+height:100vh;
+}
 body{
+	position:relative;
 	min-width:1200px;
+	background-color:#112;
+	height:100vh;
 	margin:0px;
 	padding:0px;
 	font-family: Arial, Helvetica, sans-serif
 }
 
 #contentWrapper{
-	height:100%;
+	height:100vh;
+	background-color:blue;
 	min-height:704px;
+	display:block;
 }
 
 h1{
