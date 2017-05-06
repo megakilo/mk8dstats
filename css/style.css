@@ -10,7 +10,7 @@ body{
 	height:100%;
 	margin:0px;
 	padding:0px;
-	font-family: Arial, Helvetica, sans-serif
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 #contentWrapper{
@@ -260,7 +260,7 @@ h1{
 }
 #searchArea{
 	width:50%;
-	height:100%;
+	height:calc(100% - 23px);
 	background-color:#cdd;
 	display:inline-block;
 	float:left;
@@ -269,13 +269,52 @@ h1{
 	position:absolute;
 	top:0px;
 	width:50%;
-	bottom:0px;
+	height:calc(100% - 23px);
 	border-left:3px solid #112;
 	box-sizing:border-box;
 	background-color:#112;
 	display:inline-block;
 	overflow:auto;
 	float:left;
+}
+#individualStatsArea{
+	width:100%;
+	height:calc(100% - 23px);
+	background-color:#cdd;
+	display:inline-block;
+}
+#individualStatsArea table{
+	height:100%;
+	width:100%;
+	font-size:.8em;
+	margin:0px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	text-align:center;
+}
+#individualStatsArea tr:first-child td{
+	height:20%;
+	min-height:33px;
+}
+#individualStatsArea tr:nth-child(4n+1){
+	border-bottom:2px solid black;
+}
+#individualStatsArea td:first-child{
+	overflow:hidden;
+}
+#individualStatsArea td{
+	background-color:#ddf;
+}
+#individualStatsArea td:nth-child(n+8){
+	background-color:#fdd;
+}
+#individualStatsArea td:nth-child(n+11){
+	background-color:#dfd;
+}
+#individualStatsArea td{
+	width:7.692%;
+	border:1px solid black;
+
 }
 #footer{
 	position:absolute;

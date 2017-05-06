@@ -1,4 +1,4 @@
-/* languages.js
+﻿/* languages.js
   Provides a function to get a localized version of a specific String, and all hardcoded information.
     -str.get(type,id) - get a String from the [type] property, at index [id]. Uses the user's language setting by default. Example:
       str.get("label",1) will return "Body" if the user's language is English, or "Châssis" if the user's language is French
@@ -9,7 +9,11 @@ var str = {
     return str[type][id][settings.locale];
   },
 
-  language: ["English (NOA)","English (NOE)","Français (NOA)","Français (NOE)"],
+  buildHeader: [["Build #1","Build #1","Ensemble #1","Ensemble #1"],
+          ["Build #2","Build #2","Ensemble #2","Ensemble #2"]],
+
+  partSelectHeader: [["Build #1 Part Select","Build #1 Part Select","Pièces d'ensemble #1","Pièces d'ensemble #1"],
+                     ["Build #2 Part Select","Build #2 Part Select","Pièces d'ensemble #2","Pièces d'ensemble #2"]],
 
   label: [["Character","Character","Personnage","Personnage"],
           ["Body","Body","Châssis","Châssis"],
@@ -29,12 +33,17 @@ var str = {
          ["Miniturbo","Miniturbo","Miniturbo","Miniturbo"],
          ["Handling (Grav)","Handling (Grav)","Maniabilité (AG)","Maniabilité (AG)"]],
 
+  optionsHeaders: [["Part Selection","Part Selection","Sélection de pièces","Sélection de pièces"],
+                   ["Sort By","Sort By","Trier par","Trier par"],
+                   ["Display Mode","Display Mode","Mode d'affichage","Mode d'affichage"]],
   partOptions: [["All Parts","All Parts","Toutes les pièces","Toutes les pièces"],
                 ["Unique Groups","Unique Groups","Groupes uniques","Groupes uniques"]],
   sortOptions: [["Default","Default","Défaut","Défaut"],
-               ["Name","Name","Prénom","Prénom"]],
+                ["Name","Name","Prénom","Prénom"]],
   sortOrder: [["Ascending Order","Ascending Order","Ordre croissant","Ordre croissant"],
               ["Descending Order","Descending Order","Ordre décroissant","Ordre décroissant"]],
+  displayMode: [["Individual Stats","Individual Stats","Individuellement","Individuellement"],
+                ["Search","Search","Rechercher","Rechercher"]],
 
   chara: [["Mario","Mario","Mario","Mario"],
           ["Luigi","Luigi","Luigi","Luigi"],
