@@ -1,9 +1,23 @@
 /* Disgusting. */
+
+html{
+height:100%;
+}
 body{
+	position:relative;
 	min-width:1200px;
+	background-color:#112;
+	height:100%;
 	margin:0px;
 	padding:0px;
-	font-family: Arial, Helvetica, sans-serif
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#contentWrapper{
+	height:100%;
+	background-color:blue;
+	min-height:704px;
+	display:block;
 }
 
 h1{
@@ -16,9 +30,9 @@ h1{
 
 .separator{
 	margin:0px;
-	height:1.7em;
+	height:23px;
 	font-size:.8em;
-	padding:0.3em;
+	padding:0.35em;
 	background-color:#ACD;
 	whitespace:nowrap;
 	border-bottom: 1px solid #559;
@@ -27,7 +41,7 @@ h1{
 }
 .separator:first-child{
 	padding:0.3em;
-	height:1.8em;
+	height:23px;
 	border-top:none;
 }
 .separator ul{
@@ -234,4 +248,77 @@ h1{
         max-width:200px;
 	height:158px;
 	display:block;
+}
+#searchContainer{
+	position:absolute;
+	top:504px;
+	bottom:0;
+	min-height:200px;
+	min-width:1200px;
+	width:100%;
+	background-color:green;
+}
+#searchArea{
+	width:50%;
+	height:calc(100% - 23px);
+	background-color:#cdd;
+	display:inline-block;
+	float:left;
+}
+#searchResults{
+	position:absolute;
+	top:0px;
+	width:50%;
+	height:calc(100% - 23px);
+	border-left:3px solid #112;
+	box-sizing:border-box;
+	background-color:#112;
+	display:inline-block;
+	overflow:auto;
+	float:left;
+}
+#individualStatsArea{
+	width:100%;
+	height:calc(100% - 23px);
+	background-color:#cdd;
+	display:inline-block;
+}
+#individualStatsArea table{
+	height:100%;
+	width:100%;
+	font-size:.8em;
+	margin:0px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	text-align:center;
+}
+#individualStatsArea tr:first-child td{
+	height:20%;
+	min-height:33px;
+}
+#individualStatsArea tr:nth-child(4n+1){
+	border-bottom:2px solid black;
+}
+#individualStatsArea td:first-child{
+	overflow:hidden;
+}
+#individualStatsArea td{
+	background-color:#ddf;
+}
+#individualStatsArea td:nth-child(n+8){
+	background-color:#fdd;
+}
+#individualStatsArea td:nth-child(n+11){
+	background-color:#dfd;
+}
+#individualStatsArea td{
+	width:7.692%;
+	border:1px solid black;
+
+}
+#footer{
+	position:absolute;
+	min-width:1200px;
+	width:100%;
+	bottom:0px;
 }
