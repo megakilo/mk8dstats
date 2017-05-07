@@ -20,6 +20,31 @@ var ui = {
     display.updateStatDisplay();
   },
 
+  onPartListKeyDown:function(e){
+    var direction = 0;
+    if(false && event.key !== undefined){
+      if(event.key === "ArrowLeft") direction = 1;
+      else if(event.key === "ArrowRight") direction = 2;
+    }
+    else if (event.keyCode !== undefined){
+      if(event.keyCode == 37) direction = 1;
+      else if(event.keyCode == 39) direction = 2;
+    }
+    if(direction != 0){
+      var lists = document.querySelectorAll(".partSelect");
+      for(var i=0;i<lists.length;i++){
+        if(lists[i] === document.activeElement){
+          if(i > 0 && direction == 1)
+            lists[i-1].focus();
+          else if(i<7 && direction == 2){
+            lists[i+1].focus(); 
+            break;
+          }
+        }
+      }
+    }
+  },
+
   onPartOptionsChange:function(e){
     if(settings.partOptions == 0){
       //Some parts have been removed, change the selection to one that still exists
@@ -71,8 +96,10 @@ var ui = {
 
   init:function(){
     var partLists = document.querySelectorAll(".partSelect");
-    for(var i=0;i<partLists.length;i++)
+    for(var i=0;i<partLists.length;i++){
       partLists[i].onchange = ui.onPartChange;
+      partLists[i].onkeydown = ui.onPartListKeyDown;
+    }
     document.getElementById("partOptions").onchange = ui.onPartOptionsChange;
     document.getElementById("sortOptions").onchange = ui.onSortOptionsChange;
     document.getElementById("sortOrder").onchange = ui.onSortOrderChange;
