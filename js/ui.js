@@ -75,6 +75,21 @@ var ui = {
     settings.set("sortOrder",e.target.selectedIndex);
   },
 
+  onDisplayModeChange:function(e){
+    settings.set("displayMode",e.target.selectedIndex);
+    ui.setDisplayMode();
+  },
+
+  setDisplayMode:function(){
+    var mode = settings.displayMode;
+    var divs = [["individualStatsArea"],
+                ["searchArea","searchResults"]];
+    for(var i=0;i<divs.length;i++){
+      for(var j=0;j<divs[i].length;j++)
+        document.getElementById(divs[i][j]).style.display = (mode == i)?"inline-block":"none";
+    }
+  },
+
   getSelectedIndex:function(listIndex){
     var index = ui.selected[listIndex];
     var type = ui.lists[listIndex%4];
@@ -103,6 +118,7 @@ var ui = {
     document.getElementById("partOptions").onchange = ui.onPartOptionsChange;
     document.getElementById("sortOptions").onchange = ui.onSortOptionsChange;
     document.getElementById("sortOrder").onchange = ui.onSortOrderChange;
+    document.getElementById("displayMode").onchange = ui.onDisplayModeChange;
     display.updateStatDisplay();
   }
 };

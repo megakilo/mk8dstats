@@ -1,4 +1,4 @@
-/* str.js
+﻿/* str.js
   Provides a function to get a localized version of a specific String, and all hardcoded information.
     -str.get(type,id) - get a String from the [type] property, at index [id]. Uses the user's language setting by default. Example:
       str.get("label",1) will return "Body" if the user's language is English, or "Châssis" if the user's language is French
@@ -43,7 +43,8 @@ var str = {
   sortOrder: [["Ascending Order","Ascending Order","Ordre croissant","Ordre croissant"],
               ["Descending Order","Descending Order","Ordre décroissant","Ordre décroissant"]],
   displayMode: [["Individual Stats","Individual Stats","Individuellement","Individuellement"],
-                ["Search","Search","Rechercher","Rechercher"]],
+                ["Search (Simple)","Search (Simple)","Rechercher (simple)","Rechercher (simple)"],
+                ["Search (Custom)","Search (Custom)","Rechercher (personnalisée)","Rechercher (personnalisée)"]],
 
   chara: [["Mario","Mario","Mario","Mario"],
           ["Luigi","Luigi","Luigi","Luigi"],
