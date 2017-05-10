@@ -58,6 +58,19 @@ var display = {
 
   },
 
+  applySimpleSearchState:function(){
+    var li = document.querySelectorAll("#searchArea li");
+    var select = document.querySelectorAll("#searchArea select");
+    var checkbox = document.querySelectorAll("#searchArea input[type=\"checkbox\"]");
+    for(var i=0;i<li.length;i++){
+      var state = settings.simpleSearchState[i];
+      li[i].style.fontWeight = (state<6)?"bold":"normal";
+      li[i].style.color = (state<6)?"black":"gray";
+      select[i].selectedIndex = state%6;
+      checkbox[i].checked = state<6;
+    }
+  },
+
   updateStatDisplay:function(){
     var display_stats = []; //Using an array in the event I need all stats readily available
     var order = [0,2,4,1,5,3,6,8,10,7,11,9]; //Order of stat categories
