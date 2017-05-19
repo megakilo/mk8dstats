@@ -1,4 +1,4 @@
-﻿/* str.js
+/* str.js
   Provides a function to get a localized version of a specific String, and all hardcoded information.
   -str.get(type,id) - get a String from the [type] property, at index [id]. Uses the user's language setting by default. Example:
   str.get("label",1) will return "Body" if the user's language is English, or "Châssis" if the user's language is French
@@ -30,7 +30,7 @@ var str = {
          ["Weight","Weight","Poids","Poids","Gewicht"],
          ["Speed (Grav)","Speed (Grav)","Vitesse (AG)","Vitesse (AG)","Tempo (Erde)"],
          ["Handling","Handling","Maniabilité","Maniabilité","Handling"],
-         ["Handling (Air)","Handling (Air)","Maniabilité (Air)","Maniabilité (Air)","Tempo (Luft)")],
+         ["Handling (Air)","Handling (Air)","Maniabilité (Air)","Maniabilité (Air)","Tempo (Luft)"],
          ["Traction","Grip","Adhérence","Adhérence","Haftung"],
          ["Handling (Water)","Handling (Water)","Maniabilité (Eau)","Maniabilité (Eau)","Tempo (Wasser)"],
          ["Miniturbo","Miniturbo","Miniturbo","Miniturbo","Miniturbo"],
@@ -50,7 +50,7 @@ var str = {
                 ["Search (Custom)","Search (Custom)","Rechercher (personnalisée)","Rechercher (personnalisée)","Suche (personalisiert)"]],
 
   chara: [["Mario","Mario","Mario","Mario","Mario"],
-          ["Luigi","Luigi","Luigi","Luigi",Luigi"],
+          ["Luigi","Luigi","Luigi","Luigi","Luigi"],
           ["Peach","Peach","Peach","Peach","Peach"],
           ["Daisy","Daisy","Daisy","Daisy","Daisy"],
           ["Rosalina","Rosalina","Rosalina","Rosalina","Rosalina"],
