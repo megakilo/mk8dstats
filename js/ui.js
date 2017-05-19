@@ -11,7 +11,7 @@ var ui = {
   lists:["chara","kart","tire","glider"],
   selected:[-1,-1,-1,-1,-1,-1,-1,-1],
   currentResults:[],
-  maxSearchResults:500,
+  maxSearchResults:3500,
 
   onPartChange:function(){
     var lists = document.querySelectorAll(".partSelect");
@@ -98,7 +98,7 @@ var ui = {
     var liveList = document.querySelectorAll(".partSelect")[listIndex];
 
     if(index == -1){
-      index = parts[type][0][0];
+      index = parts.getList(type)[0][0];
       ui.selected[listIndex] = index;
     }
 
@@ -166,6 +166,17 @@ var ui = {
     display.applySimpleSearchState();
   },
 
+  arraysEqual:function(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+},
+
   simpleSearchSubmit:function(){
     var results = [];
     var order = [0,2,4,1,5,3,6,8,10,7,11,9];
@@ -187,6 +198,7 @@ var ui = {
         }
       }
     }
+
  /*   //Remove Build #1 from results
     var buildOne = [];
     var lists = document.querySelectorAll(".partSelect");
@@ -292,10 +304,28 @@ var ui = {
     return true;
   },
 
+  setLocale:function(e){
+    var lis = document.querySelectorAll("#optionsBar li");
+    for(var i=0;i<lis.length;i++){
+      if(e.target == lis[i]){
+        if(i == 2) i += 2; //Dirty fix to allow for German language selection, despite French not being finished. Fix later!!!
+        settings.set("locale",i);
+        if(i == 4) i = 2; //Dirty fix to allow for German language selection, despite French not being finished. Fix later!!!
+        display.updateLocale();
+        display.populatePartLists();
+        display.updateStatDisplay();
+        lis[i].className = "languageSelected";
+      }
+      else{
+        lis[i].className = "languageOption";
+      }
+    }
+  },
+
   init:function(){
     var partLists = document.querySelectorAll(".partSelect");
     for(var i=0;i<partLists.length;i++){
-      partLists[i].selectedIndex = 0;
+      
       partLists[i].onchange = ui.onPartChange;
       partLists[i].onkeydown = ui.onPartListKeyDown;
     }
@@ -306,6 +336,16 @@ var ui = {
     document.getElementById("simpleSearchReset").onclick = ui.simpleSearchReset;
     document.getElementById("simpleSearchSubmit").onclick = ui.simpleSearchSubmit;
 
+    var languageOptions = document.querySelectorAll("#optionsBar li");
+    for(i=0;i<languageOptions.length;i++){
+      languageOptions[i].onclick = ui.setLocale;
+      if(settings.locale == i || (i == 2 && settings.locale == 4)) //Dirty fix to allow for German language selection, despite French not being finished. Fix later!!!
+        languageOptions[i].className = "languageSelected";
+      else
+        languageOptions[i].className = "languageOption";
+    }
+
+
     var simpleSearchLi = document.querySelectorAll("#searchArea li");
     var simpleSearchCheckbox = document.querySelectorAll("#searchArea input[type=\"checkbox\"]");
     var simpleSearchSelect = document.querySelectorAll("#searchArea select");
@@ -314,6 +354,7 @@ var ui = {
       simpleSearchCheckbox[i].onchange = ui.setSimpleSearchStates;
       simpleSearchSelect[i].onchange = ui.setSimpleSearchStates;
     }
+
     display.updateStatDisplay();
     display.applySimpleSearchState();
   }

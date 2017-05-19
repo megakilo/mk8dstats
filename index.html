@@ -20,10 +20,9 @@
 <h1>Mario Kart 8 Deluxe Stat Calculator</h1> | 
 <h1>Language:</h1>
 <ul>
-	<li>English (NoA)</li>
-	<li>English (NoE)</li>
-	<li>Français (NoA)</li>
-	<li>Français (NoE)</li>
+	<li class="languageSelected">English (NoA)</li>
+	<li class="languageOption">English (NoE)</li>
+	<li class="languageOption">Deutsche</li>
 </ul>
 </div>
 <div id="heightWrapper">
@@ -387,7 +386,7 @@
   </div>
 </div>
 </div>
-<div id="footer" class="separator"><h1>Note: Still a work in progress, some features are not working now but will later (like Searching)</h1></div>
+<div id="footer" class="separator"><h1>Note: Still a work in progress, some features are not working now but will later (like Searching.) Language select is now working; more languages will be added down the road.</h1></div>
 </div>
 
 <script>
@@ -395,8 +394,8 @@ function init(){
   str.init();
   preloader.init();
   parts.init();
-  groups.init();
   settings.init();
+  groups.init();
   display.init();
   ui.init();
 }

@@ -82,9 +82,22 @@ h1:last-child{
 	margin:5px;
 	list-style-type:none;
 	display:inline;
-	text-decoration:underline;
 	white-space:nowrap;
 	overflow:hidden;
+}
+.languageSelected{
+	font-weight:bold;
+}
+.languageOption{
+	text-decoration:underline;
+	font-weight:normal;
+	cursor:pointer;
+}
+.languageSelected:before{
+	content:"-";
+}
+.languageSelected:after{
+	content:"-";
 }
 .containsSelect{
 	height:28px;

@@ -55,7 +55,6 @@ var display = {
     labels = document.querySelectorAll("#sortBar h1");
     for(i=0;i<labels.length;i++)
       labels[i].innerHTML = str.get("optionsHeaders",i)+":";
-
   },
 
   applySimpleSearchState:function(){
@@ -142,6 +141,6 @@ var display = {
     //Init Stat Bars
     var statContainerArea = document.querySelectorAll(".statContainerArea");
       display.updateLocale();
-      display.populatePartLists();
+    display.populatePartLists();
   }
 };

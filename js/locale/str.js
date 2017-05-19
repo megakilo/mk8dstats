@@ -1,4 +1,4 @@
-/* str.js
+﻿/* str.js
   Provides a function to get a localized version of a specific String, and all hardcoded information.
   -str.get(type,id) - get a String from the [type] property, at index [id]. Uses the user's language setting by default. Example:
   str.get("label",1) will return "Body" if the user's language is English, or "Châssis" if the user's language is French
@@ -57,7 +57,7 @@ var str = {
           ["Tanooki Mario","Tanooki Mario","Mario tanooki","Mario tanooki","Tanooki Mario"],
           ["Cat Peach","Cat Peach","Peach chat","Peach chat","Katzen-Peach"],
           ["Yoshi","Yoshi","Yoshi","Yoshi","Yoshi"],
-          ["Toad","Toad","Toad","Toad","Toad","Toad"],
+          ["Toad","Toad","Toad","Toad","Toad"],
           ["Koopa","Koopa","Koopa","Koopa","Koopa"],
           ["Shy Guy","Shy Guy","Maskache","Maskass","Shy Guy"],
           ["Lakitu","Lakitu","Lakitou","Lakitu","Lakitu"],
@@ -65,7 +65,7 @@ var str = {
           ["King Boo","King Boo","Roi Boo","Roi Boo","König Buu Huu"],
           ["Baby Mario","Baby Mario","Bébé Mario","Bébé Mario","Baby Mario"],
           ["Baby Luigi","Baby Luigi","Bébé Luigi","Bébé Luigi","Baby Luigi"],
-          ["Baby Peach","Baby Peach","Bébé Peach","Bébé Peach",,"Baby Peach"],
+          ["Baby Peach","Baby Peach","Bébé Peach","Bébé Peach","Baby Peach"],
           ["Baby Daisy","Baby Daisy","Bébé Daisy","Bébé Daisy","Baby Daisy"],
           ["Baby Rosalina","Baby Rosalina","Bébé Rosalina","Bébé Rosalina","Baby Rosalina"],
           ["Metal Mario","Metal Mario","Mario de métal","Mario de métal","Metall-Mario"],
@@ -133,7 +133,7 @@ var str = {
          ["Teddy Buggy","Teddy Buggy","VTT nounourse","Quad nounours","Bärchen-Bolide"],
          ["Bone Rattler","Bone Rattler","Malécycle","Malécycle","Knochenmühle"], //Check [2]
          ["Inkstriker","Inkstriker","Missile tornade","Missile tornade","Splat-Quad"], //Check [2]
-         ["Splat Buggy","Splat Buggy","Kartoon","Tintferno-Quad"]], //Check [3]
+         ["Splat Buggy","Splat Buggy","Kartoon","Kartoon","Tintferno-Quad"]], //Check [3]
 
   tire: [["Standard","Normal","NA","NA","Standard"],
          ["Monster","Monster","NA","NA","Riesig"],
